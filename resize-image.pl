@@ -114,13 +114,14 @@ sub getImageProperties($) {
         $_ =~ /^\s*Geometry:\s*(.*)/ && do {
             $props->{'Geometry'} = $1;
         };
-        $_ =~ /^\s*Filesize:\s*([\d.]*)/ && do {
-            $props->{'Filesize'} = ($1 * 1);
-        };
+        #$_ =~ /^\s*Filesize:\s*([\d.]*)/ && do {
+        #    $props->{'Filesize'} = ($1 * 1);
+        #};
         $_ =~ /^\s*Quality:\s*([\d.]*)/ && do {
             $props->{'Quality'} = ($1 * 1);
         };                       
     }
+    $props->{'Filesize'} = ((-s $file) / 1000);
     $logger->debug("image properties for '${file}': " . join(", ", %$props));
     $logger->trace("EXITING");    
     return $props;
